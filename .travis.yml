@@ -29,6 +29,7 @@ before_install:
 
 install:
   - composer install
+  - npm install
   - npm run build
 
 before_script:
