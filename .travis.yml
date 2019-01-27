@@ -8,11 +8,12 @@ services:
   - rabbitmq
 
 env:
-  - APP_ENV=test
-  - APP_SECRET=azertyuiopqsdfghjklm
-  - MONGODB_URL=mongodb://travis:test@localhost:27017/twity_test
-  - MONGODB_DB=twity_test
-  - MESSENGER_TRANSPORT_DSN=amqp://guest:guest@localhost:5672/%2f/messages
+  global:
+    - APP_ENV=test
+    - APP_SECRET=azertyuiopqsdfghjklm
+    - MONGODB_URL=mongodb://travis:test@localhost:27017/twity_test
+    - MONGODB_DB=twity_test
+    - MESSENGER_TRANSPORT_DSN=amqp://guest:guest@localhost:5672/%2f/messages
 
 before_install:
     - echo "extension = amqp.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
