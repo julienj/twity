@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('build/app.css') }}">
+{% endblock %}
+
+
+{% block body %}
+
+    <div class="container">
+        <div class="row justify-content-md-center mt-5">
+            <div class="col col-lg-6">
+
+                {% for label, messages in app.flashes %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ label }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+
+                {% block main %}{% endblock %}
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+
+
+

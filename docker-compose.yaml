@@ -1,0 +1,49 @@
+version: '3.4'
+
+services:
+  php:
+    build: ./docker/php
+    container_name: twity_php
+    depends_on:
+      - mongo
+    env_file:
+      - .env
+    volumes:
+      - .:/srv/twity:rw,cached
+
+  web:
+    build: ./docker/nginx
+    container_name: twity_nginx
+    depends_on:
+      - php
+    volumes:
+      - ./public:/srv/twity/public:ro
+    ports:
+      - "8080:80"
+
+  mongo:
+    image: mongo:4.0
+    container_name: twity_mongo
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - db-data:/data/db
+
+  rabbit:
+    image: rabbitmq:3-management
+    container_name: twity_rabbit
+    restart: always
+    ports:
+    - "8081:15672"
+    - "5672:5672"
+
+  maildev:
+    image: djfarrelly/maildev
+    container_name: twity_maildev
+    ports:
+    - "8082:80"
+
+
+volumes:
+  db-data: {}

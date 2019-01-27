@@ -1,0 +1,6 @@
+Hello, {{ user.fullName }}!
+
+You have been invited to join Twity platform.
+
+create your account
+{{ url('reset_password', {'token': user.resetPasswordToken}) }}

@@ -1,0 +1,11 @@
+App\Document\User:
+  admin:
+    username: admin
+    email: admin@exemple.com
+    plainPassword: admin
+    role: ROLE_ADMIN
+  user:
+    username: user
+    email: user@exemple.com
+    plainPassword: user
+    role: ROLE_USER

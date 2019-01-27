@@ -1,0 +1,23 @@
+repository: git@gitlab.com:julienj/twityv2.git
+platforms:
+  prod:
+    default_branch: master
+    max_releases: 3
+    servers:
+      twity-front-1:
+        host: x.x.x.x
+        user: xxxx
+        password: %password%
+        path: /srv/twity
+shared_files:
+- .env
+shared_folders:
+- dist
+pre_deploy:
+- "php -v"
+on_deploy:
+- "composer install"
+- "setfacl -R -m u:www-data:rwX -m u:`whoami`:rwX var"
+- "setfacl -R -m u:www-data:rwX -m u:`whoami`:rwX dist"
+- "npm install"
+- "npm run build"

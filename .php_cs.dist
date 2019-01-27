@@ -1,0 +1,27 @@
+<?php
+
+return PhpCsFixer\Config::create()
+    ->setRules(
+        [
+            '@Symfony' => true,
+            '@DoctrineAnnotation' => true,
+            'phpdoc_order' => true,
+            'align_multiline_comment' => true,
+            'combine_consecutive_issets' => true,
+            'combine_consecutive_unsets' => true,
+            'linebreak_after_opening_tag' => true,
+            'method_chaining_indentation' => true,
+            'multiline_comment_opening_closing' => true,
+            'multiline_whitespace_before_semicolons' => true,
+            'no_superfluous_elseif' => true,
+            'no_useless_else' => true,
+            'no_useless_return' => true,
+            'array_syntax' => ['syntax' => 'short'],
+            'ordered_class_elements' => true,
+            'ordered_imports' => true,
+            'general_phpdoc_annotation_remove' => ['annotations' => ["author", "package"]]
+        ]
+    )
+    ->setCacheFile(__DIR__.'/.php_cs.cache')
+    ->setFinder(PhpCsFixer\Finder::create()->in(__DIR__.'/src'))
+;

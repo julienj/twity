@@ -1,0 +1,5 @@
+logout:
+  path: /logout
+
+gitlab_login:
+  path: /login/gitlab
