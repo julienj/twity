@@ -1,0 +1,29 @@
+language: php
+php:
+  - 7.2
+  - 7.3
+
+services:
+  - mongodb
+  - rabbitmq
+
+env:
+  - APP_ENV=test
+  - APP_SECRET=azertyuiopqsdfghjklm
+  - MONGODB_URL=mongodb://travis:test@localhost:27017/twity_test
+  - MONGODB_DB=twity_test
+  - MESSENGER_TRANSPORT_DSN=amqp://guest:guest@localhost:5672/%2f/messages
+
+before_install:
+    - echo "extension = amqp.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+    - echo "extension = mongodb.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+    - composer self-update
+
+install:
+    - composer install
+
+before_script:
+  - sleep 15
+  - mongo twity_test --eval 'db.createUser({user:"travis",pwd:"test",roles:["readWrite"]});'
+
+script: vendor/bin/behat
