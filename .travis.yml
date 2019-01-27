@@ -17,7 +17,7 @@ env:
 
 before_install:
   - sudo apt-get install --yes librabbitmq-dev
-  - printf "\n" | pecl install amqp
+  - printf "\n" | pecl install amqp-1.8.0
   - echo "extension = amqp.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
   - echo "extension = mongodb.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
   - composer self-update
