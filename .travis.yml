@@ -1,3 +1,4 @@
+dist: xenial
 language: php
 php:
   - 7.2
@@ -17,7 +18,7 @@ env:
 
 before_install:
   - sudo apt-get install --yes librabbitmq-dev
-  - printf "\n" | pecl install amqp-1.7.1
+  - pecl install amqp
   - echo "extension = amqp.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
   - echo "extension = mongodb.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
   - composer self-update
