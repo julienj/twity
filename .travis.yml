@@ -16,7 +16,7 @@ env:
     - MESSENGER_TRANSPORT_DSN=amqp://guest:guest@localhost:5672/%2f/messages
 
 before_install:
-  - pecl install amqp
+  - printf "\n" | pecl install amqp
   - echo "extension = amqp.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
   - echo "extension = mongodb.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
   - composer self-update
