@@ -15,12 +15,19 @@ Some of Private Packagist's revenue is used to pay for Composer and Packagist.or
 
 Twity provide a web based management of private and public composer packages.
 
+![Twity][doc/twity.png]
+
+
 ## Features
 
 - Local or Gitlab users
 - Manage access permissions
 - Manage applications and Environments (deploy keys)
 - Manage Github and Gitlab Backends (for private package)
+
+## Documentation
+
+* [Install](doc/install.md)
 
 ## Contributing
 
