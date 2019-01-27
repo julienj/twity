@@ -12,10 +12,10 @@
     "license": "MIT",
     "private": true,
     "scripts": {
-        "dev-server": "encore dev-server",
-        "dev": "encore dev",
-        "watch": "encore dev --watch",
-        "build": "encore production"
+        "dev-server": "./node_modules/.bin/encore dev-server",
+        "dev": "./node_modules/.bin/encore dev",
+        "watch": "./node_modules/.bin/encore dev --watch",
+        "build": "./node_modules/.bin/encore production"
     },
     "dependencies": {
         "axios": "^0.18.0",
