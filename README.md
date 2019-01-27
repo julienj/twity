@@ -15,8 +15,7 @@ Some of Private Packagist's revenue is used to pay for Composer and Packagist.or
 
 Twity provide a web based management of private and public composer packages.
 
-![Twity][doc/twity.png]
-
+![Twity](doc/twity.png)
 
 ## Features
 
