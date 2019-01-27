@@ -1,5 +1,10 @@
 dist: xenial
 language: php
+addons:
+  apt:
+    packages:
+      - rabbitmq-server
+      - librabbitmq-dev
 php:
   - 7.2
   - 7.3
@@ -17,7 +22,6 @@ env:
     - MESSENGER_TRANSPORT_DSN=amqp://guest:guest@localhost:5672/%2f/messages
 
 before_install:
-  - sudo apt-get install --yes librabbitmq-dev
   - printf "\n" | pecl install amqp
   - echo "extension = amqp.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
   - echo "extension = mongodb.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
