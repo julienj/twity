@@ -12,6 +12,9 @@
 git clone https://github.com/julienj/twity.git
 cd twity
 cp .env.dist .env
+composer insall
+npm install
+npm run build
 ```
 
 ## Configure
@@ -53,6 +56,14 @@ GITLAB_DOMAINE=https://gitlab.exemple.com
 GITLAB_CLIENT_ID=my-client-id
 GITLAB_CLIENT_ID_SECRET=my-secret
 ```
+
+
+## Create indexes
+
+```bash
+ php bin/console doctrine:mongodb:schema:update
+````
+
 
 ## Run background jod
 
