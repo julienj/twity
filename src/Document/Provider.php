@@ -29,6 +29,8 @@ class Provider
 
     /**
      * @MongoDB\Field(type="string")
+     * @MongoDB\Index()
+     *
      * @Groups({"provider_default", "provider_full", "provider_write"})
      * @Assert\Choice({Provider::TYPE_COMPOSER, Provider::TYPE_VCS})
      * @Assert\NotBlank

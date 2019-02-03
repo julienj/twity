@@ -20,6 +20,7 @@ class Application
 
     /**
      * @MongoDB\Field(type="string")
+     * @MongoDB\Index()
      *
      * @Groups({"application_default", "application_write", "application_full"})
      * @Assert\NotBlank

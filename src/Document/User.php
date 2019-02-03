@@ -19,6 +19,7 @@ class User extends AbstractUser
 
     /**
      * @MongoDB\Field(type="string")
+     * @MongoDB\Index()
      *
      * @Groups({"user_profile", "user_write", "user_default", "user_full", "user_autocomplete"})
      * @Assert\NotBlank
