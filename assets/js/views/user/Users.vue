@@ -116,8 +116,10 @@
                 this.total = null;
             },
             getRoleText: function (role) {
-                let text = role.substring(5);
-                return text.charAt(0) + text.slice(1).toLowerCase();
+                if(role) {
+                    let text = role.substring(5);
+                    return text.charAt(0) + text.slice(1).toLowerCase();
+                }
             }
         },
         mounted: function () {

@@ -69,6 +69,10 @@ h6 {
 .dropdown-menu {
   max-height: 300px;
   overflow-y: auto;
+
+  .dropdown-item:hover, .dropdown-item:focus {
+    background-color: $blue;
+  }
 }
 
 .package-info, .package-info a {
