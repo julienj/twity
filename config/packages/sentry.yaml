@@ -1,0 +1,3 @@
+sentry:
+    options:
+        curl_method: async

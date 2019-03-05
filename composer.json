@@ -12,6 +12,7 @@
         "nelmio/api-doc-bundle": "^3.3",
         "omines/oauth2-gitlab": "^3.1",
         "sensio/framework-extra-bundle": "^5.2",
+        "sentry/sentry-symfony": "^2.3",
         "symfony/asset": "*",
         "symfony/console": "*",
         "symfony/debug": "*",

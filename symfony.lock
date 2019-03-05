@@ -131,6 +131,9 @@
     "guzzlehttp/psr7": {
         "version": "1.4.2"
     },
+    "jean85/pretty-package-versions": {
+        "version": "1.2"
+    },
     "justinrainbow/json-schema": {
         "version": "5.2.7"
     },
@@ -169,6 +172,9 @@
     },
     "nikic/php-parser": {
         "version": "v4.0.4"
+    },
+    "ocramius/package-versions": {
+        "version": "1.4.0"
     },
     "omines/oauth2-gitlab": {
         "version": "3.1.2"
@@ -246,6 +252,18 @@
             "branch": "master",
             "version": "5.2",
             "ref": "fb7e19da7f013d0d422fa9bce16f5c510e27609b"
+        }
+    },
+    "sentry/sentry": {
+        "version": "1.10.0"
+    },
+    "sentry/sentry-symfony": {
+        "version": "1.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "1.0",
+            "ref": "fa1a2dfc020798cd7076b5419596e72dca07047a"
         }
     },
     "swiftmailer/swiftmailer": {
