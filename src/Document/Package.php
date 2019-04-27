@@ -17,10 +17,10 @@ class Package
     protected $version;
 
     /**
-     * @MongoDB\Field(type="hash")
+     * @MongoDB\Field(type="raw")
      * @Groups({"package_default"})
      *
-     * @var string[]
+     * @var string
      */
     protected $data;
 
@@ -38,12 +38,16 @@ class Package
 
     public function getData(): array
     {
+        if(is_string($this->data)) {
+            return json_decode($this->data, true);
+        }
+
         return $this->data;
     }
 
     public function setData(array $data): self
     {
-        $this->data = $data;
+        $this->data = json_encode($data);
 
         return $this;
     }
