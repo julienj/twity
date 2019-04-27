@@ -10,6 +10,10 @@ services:
       - .env
     volumes:
       - .:/srv/twity:rw,cached
+      - ./vendor:/srv/twity/vendor:delegated
+      - appdata:/srv/twity/var/cache/
+      - appdata:/srv/twity/var/log/
+      - appdata:/srv/twity/var/composer
 
   web:
     build: ./docker/nginx
@@ -47,3 +51,4 @@ services:
 
 volumes:
   db-data: {}
+  appdata: {}

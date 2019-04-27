@@ -15,8 +15,9 @@ RUN apt-get update  \
    && pecl install mongodb \
    && echo "extension=mongodb.so" > /usr/local/etc/php/conf.d/mongodb.ini
 
-RUN echo "date.timezone = Europe/Paris" > /usr/local/etc/php/conf.d/app.ini
-RUN echo "memory_limit = 512M" > /usr/local/etc/php/conf.d/app.ini
+RUN echo "date.timezone = Europe/Paris" >> /usr/local/etc/php/conf.d/app.ini
+RUN echo "memory_limit = 1024M" >> /usr/local/etc/php/conf.d/app.ini
+
 
 # nodejs
 RUN apt-get install --yes gnupg
