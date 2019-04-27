@@ -24,12 +24,12 @@
         <div class="row mt-3">
             <div class="col"><package-require-list title="Requires" :list="currentPackage.data.require"></package-require-list></div>
             <div class="col"><package-require-list title="Requires (dev)" :list="currentPackage.data['require-dev']"></package-require-list></div>
-            <div class="col"><package-require-list title="Suggests" :list="currentPackage.data.suggests"></package-require-list></div>
+            <div class="col"><package-require-list title="Suggests" :list="currentPackage.data.suggest"></package-require-list></div>
         </div>
         <div class="row  mt-3">
-            <div class="col"><package-require-list title="Provides" :list="currentPackage.data.provides"></package-require-list></div>
-            <div class="col"><package-require-list title="Conflicts" :list="currentPackage.data.conflicts"></package-require-list></div>
-            <div class="col"><package-require-list title="Replaces" :list="currentPackage.data.replaces"></package-require-list></div>
+            <div class="col"><package-require-list title="Provides" :list="currentPackage.data.provide"></package-require-list></div>
+            <div class="col"><package-require-list title="Conflicts" :list="currentPackage.data.conflict"></package-require-list></div>
+            <div class="col"><package-require-list title="Replaces" :list="currentPackage.data.replace"></package-require-list></div>
         </div>
 
     </div>

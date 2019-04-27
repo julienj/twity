@@ -1,4 +1,4 @@
-repository: git@gitlab.com:julienj/twityv2.git
+repository: https://github.com/julienj/twity.git
 platforms:
   prod:
     default_branch: master
