@@ -41,5 +41,8 @@ class ProviderImportationHandler implements MessageHandlerInterface
 
         $provider->setUpdateInProgress(false);
         $this->dm->flush();
+
+        $this->packageImporter->updateReplaceProviderSignature($provider);
+        $this->dm->flush();
     }
 }

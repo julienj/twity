@@ -16,12 +16,14 @@ class PackageImporter
     private $factory;
     private $dm;
     private $mirrorUrl;
+    private $packageDumper;
 
-    public function __construct(DocumentManager $dm, string $mirrorUrl, Factory $factory)
+    public function __construct(DocumentManager $dm, string $mirrorUrl, Factory $factory, PackageDumper $packageDumper)
     {
         $this->dm = $dm;
         $this->mirrorUrl = $mirrorUrl;
         $this->factory = $factory;
+        $this->packageDumper = $packageDumper;
     }
 
     public function import(Provider $provider): bool
@@ -40,10 +42,17 @@ class PackageImporter
 
         $provider->clearPackages();
 
+        $replace = [];
+
         foreach ($packages as $package) {
             $data = $dumper->dump($package);
             $data['uid'] = uniqid();
             unset($data['notification-url']);
+
+            // get provided packages
+            if(isset($data['replace'])) {
+                $replace = array_unique(array_merge($replace, array_keys($data['replace'])));
+            }
 
             $document = new Package();
             $document
@@ -53,9 +62,23 @@ class PackageImporter
             $provider->addPackage($document);
         }
 
+        $provider->setReplace($replace);
         $provider->setLogs($io->getLogs());
 
+        $provider->setSha256(hash('sha256', json_encode($this->packageDumper->dump($provider))));
+
         return true;
+    }
+
+    public function updateReplaceProviderSignature(Provider $provider) :void
+    {
+        foreach ($provider->getReplace() as $replaceName) {
+            /** @var Provider $replacePackage */
+            $replacePackage = $this->dm->getRepository('App:Provider')->find($replaceName);
+            if($replacePackage) {
+                $replacePackage->setSha256(hash('sha256', json_encode($this->packageDumper->dump($replacePackage))));
+            }
+        }
     }
 
     /**

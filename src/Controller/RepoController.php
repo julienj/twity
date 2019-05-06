@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Composer\DistDownloader;
+use App\Composer\PackageDumper;
 use App\Composer\PackageImporter;
 use App\Document\Download;
 use App\Document\Provider;
@@ -122,16 +123,16 @@ class RepoController extends AbstractController
     /**
      * @Route("/p/{provider}${hash}.json", name="provider", requirements={"provider": ".+"})
      */
-    public function provider(Provider $provider, $hash): Response
+    public function provider(Provider $provider, $hash, PackageDumper $packageDumper): Response
     {
-        return new Response(json_encode($provider->getData()));
+        return new Response(json_encode($packageDumper->dump($provider)));
     }
 
     /**
      * @Route("/p/{package}.json", name="lazy", requirements={"package": ".+"})
      * @IsGranted("ROLE_MANAGER")
      */
-    public function providerLazy($package, PackageImporter $packageImporter, DocumentManager $dm): Response
+    public function providerLazy($package, PackageImporter $packageImporter, DocumentManager $dm, PackageDumper $packageDumper): Response
     {
         $provider = new Provider();
         $provider->setType(Provider::TYPE_COMPOSER);
@@ -144,7 +145,10 @@ class RepoController extends AbstractController
         $dm->persist($provider);
         $dm->flush();
 
-        return $this->json($provider->getData());
+        $packageImporter->updateReplaceProviderSignature($provider);
+        $dm->flush();
+
+        return new Response(json_encode($packageDumper->dump($provider)));
     }
 
     private function generateCleanUrl(string $route, array $parameters = [], int $referenceType = UrlGeneratorInterface::ABSOLUTE_URL): string

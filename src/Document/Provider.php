@@ -91,12 +91,20 @@ class Provider
      */
     private $packages;
 
+
+    /**
+     * @MongoDB\Field(type="collection")
+     */
+    private $replace;
+
+
     public function __construct()
     {
         $this->packages = new ArrayCollection();
         $this->updateInProgress = false;
         $this->downloads = 0;
         $this->hasError = false;
+        $this->replace = [];
     }
 
     /**
@@ -105,7 +113,6 @@ class Provider
     public function onFlush()
     {
         $this->setLastUpdate(new \DateTime());
-        $this->setSha256(hash('sha256', json_encode($this->getData())));
 
         if ($lastpackage = $this->packages->last()) {
             if (isset($lastpackage->getData()['description'])) {
@@ -260,14 +267,15 @@ class Provider
         return $this;
     }
 
-    public function getData(): array
+    public function getReplace() :array
     {
-        $data = [];
-        /** @var Package $package */
-        foreach ($this->getPackages() as $package) {
-            $data[$package->getVersion()] = $package->getData();
-        }
-
-        return ['packages' => [$this->getName() => $data]];
+        return $this->replace;
     }
+
+    public function setReplace(array $replace): self
+    {
+        $this->replace = $replace;
+        return $this;
+    }
+
 }

@@ -2,6 +2,7 @@
 
 namespace App\Controller\Api;
 
+use App\Composer\PackageImporter;
 use App\Document\Provider;
 use App\Messenger\Message\ProviderImportation;
 use Doctrine\ODM\MongoDB\DocumentManager;
@@ -182,9 +183,12 @@ class ProviderController extends AbstractController
      * @SWG\Tag(name="providers")
      * @Security(name="Bearer")
      */
-    public function delete(DocumentManager $dm, Provider $provider): Response
+    public function delete(DocumentManager $dm, Provider $provider, PackageImporter $packageImporter): Response
     {
         $dm->remove($provider);
+        $dm->flush();
+
+        $packageImporter->updateReplaceProviderSignature($provider);
         $dm->flush();
 
         return new Response('', Response::HTTP_NO_CONTENT);

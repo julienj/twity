@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Document\Provider;
 use Doctrine\MongoDB\Query\Builder;
 use Doctrine\ODM\MongoDB\DocumentRepository;
 
@@ -66,6 +67,14 @@ class ProviderRepository extends DocumentRepository
 
             return $item;
         }, $providers);
+    }
+
+    public function getReplacements(Provider $provider)
+    {
+        return $this->createQueryBuilder()
+            ->field('replace')->equals($provider->getName())
+            ->getQuery()
+            ->execute();
     }
 
     private function addSearch(Builder $qb, string $query = null, string $type = null): void
