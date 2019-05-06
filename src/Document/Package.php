@@ -51,4 +51,15 @@ class Package
 
         return $this;
     }
+
+    /**
+     * @return array
+     */
+    public function getReplace()
+    {
+        if(isset($this->getData()['replace'])) {
+            return array_keys($this->getData()['replace']);
+        }
+        return [];
+    }
 }
