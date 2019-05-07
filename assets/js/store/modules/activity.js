@@ -23,7 +23,7 @@ export default {
                     const hubUrl = response.headers.link.match(/<([^>]+)>;\s+rel=(?:mercure|"[^"]*mercure[^"]*")/)[1];
                     const h = new URL(hubUrl);
                     h.searchParams.append('topic', 'http://twity.io/p/{provider}/{package}')
-                    const es = new EventSource(h);
+                    const es = new EventSource(h, { withCredentials: true});
                     es.onmessage = e => {
                         let data = JSON.parse(e.data);
 

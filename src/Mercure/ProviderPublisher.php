@@ -27,7 +27,8 @@ class ProviderPublisher
                 json_encode([
                     'provider' => $provider->getName(),
                     'updateInProgress' => $provider->getUpdateInProgress()
-                ])
+                ]),
+                ['http://twity.io/user']
             );
 
             $publisher = $this->publisher;

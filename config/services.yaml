@@ -54,10 +54,13 @@ services:
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
 
-
     App\Mercure\JwtProvider:
         arguments:
             $key: '%env(MERCURE_JWT_KEY)%'
+
+    App\EventSubscriber\MercureCookieInjectorSubscriber:
+      arguments:
+        $mercureJwtKey: '%env(MERCURE_JWT_KEY)%'
 
     datetime_normalizer:
         class: Symfony\Component\Serializer\Normalizer\DateTimeNormalizer
