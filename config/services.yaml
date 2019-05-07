@@ -13,6 +13,7 @@ parameters:
     env(EMAIL_SENDER): 'no-reply@exemple.com'
 
     locale: 'en'
+    env(MERCURE_ENABLED): true
     env(MERCURE_PUBLISH_URL): ''
     env(MERCURE_PUBLIC_URL): '%env(MERCURE_PUBLISH_URL)%'
     env(MERCURE_JWT_KEY): ''
@@ -33,6 +34,7 @@ services:
             $gitlabClientId: '%env(GITLAB_CLIENT_ID)%'
             $gitlabClientSecret: '%env(GITLAB_CLIENT_ID_SECRET)%'
             $gitlabDefaultRole: '%env(GITLAB_DEFAULT_ROLE)%'
+            $mercureEnabled: '%env(bool:MERCURE_ENABLED)%'
             $mercurePublicUrl: '%env(MERCURE_PUBLIC_URL)%'
             $composerDir: '%kernel.project_dir%/var/composer'
             $sender: '%env(EMAIL_SENDER)%'

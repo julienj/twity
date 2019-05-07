@@ -19,20 +19,21 @@ export default {
                 commit('setActivity', response.data);
 
                 // Mercure
-                const hubUrl = response.headers.link.match(/<([^>]+)>;\s+rel=(?:mercure|"[^"]*mercure[^"]*")/)[1];
-                const h = new URL(hubUrl);
-                h.searchParams.append('topic', 'http://twity.io/p/{provider}/{package}')
-                const es = new EventSource(h);
-                es.onmessage = e => {
-                    let data = JSON.parse(e.data);
+                if(response.headers.link) {
+                    const hubUrl = response.headers.link.match(/<([^>]+)>;\s+rel=(?:mercure|"[^"]*mercure[^"]*")/)[1];
+                    const h = new URL(hubUrl);
+                    h.searchParams.append('topic', 'http://twity.io/p/{provider}/{package}')
+                    const es = new EventSource(h);
+                    es.onmessage = e => {
+                        let data = JSON.parse(e.data);
 
-                    if(data.updateInProgress === true) {
-                        commit('addProvider', data.provider);
-                    } else {
-                        commit('removeProvider', data.provider);
+                        if(data.updateInProgress === true) {
+                            commit('addProvider', data.provider);
+                        } else {
+                            commit('removeProvider', data.provider);
+                        }
                     }
                 }
-
             });
         }
     },

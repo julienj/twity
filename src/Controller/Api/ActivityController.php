@@ -33,10 +33,11 @@ class ActivityController extends AbstractController
      * @SWG\Tag(name="activity")
      * @Security(name="Bearer")
      */
-    public function index(DocumentManager $dm, Request $request, string $mercurePublicUrl): Response
+    public function index(DocumentManager $dm, Request $request, string $mercurePublicUrl, bool $mercureEnabled = true): Response
     {
-
-        $this->addLink($request, new Link('mercure', $mercurePublicUrl));
+        if($mercureEnabled) {
+            $this->addLink($request, new Link('mercure', $mercurePublicUrl));
+        }
 
         $data = $dm->getRepository('App:Provider')->findUpdateInProgress();
         return $this->json($data);

@@ -7,7 +7,7 @@ services:
     depends_on:
       - mongo
     env_file:
-      - .env
+      - .env.local
     volumes:
       - .:/srv/twity:rw,cached
       - ./vendor:/srv/twity/vendor:delegated
