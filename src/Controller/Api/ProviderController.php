@@ -4,6 +4,7 @@ namespace App\Controller\Api;
 
 use App\Composer\PackageImporter;
 use App\Document\Provider;
+use App\Mercure\ProviderPublisher;
 use App\Messenger\Message\ProviderImportation;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Nelmio\ApiDocBundle\Annotation\Model;
@@ -125,6 +126,7 @@ class ProviderController extends AbstractController
         SerializerInterface $serializer,
         ValidatorInterface $validator,
         MessageBusInterface $bus,
+        ProviderPublisher $publisher,
         Request $request): Response
     {
         $data = $request->getContent();
@@ -142,7 +144,7 @@ class ProviderController extends AbstractController
 
         $dm->persist($provider);
         $dm->flush();
-
+        $publisher->publishProviderUpdate($provider);
         $bus->dispatch(new ProviderImportation($provider->getName()));
 
         return new Response('', Response::HTTP_CREATED);
@@ -161,9 +163,10 @@ class ProviderController extends AbstractController
      * @SWG\Tag(name="providers")
      * @Security(name="Bearer")
      */
-    public function refresh(DocumentManager $dm, Provider $provider, MessageBusInterface $bus): Response
+    public function refresh(DocumentManager $dm, Provider $provider, MessageBusInterface $bus, ProviderPublisher $publisher): Response
     {
         $provider->setUpdateInProgress(true);
+        $publisher->publishProviderUpdate($provider);
         $dm->flush();
         $bus->dispatch(new ProviderImportation($provider->getName()));
 

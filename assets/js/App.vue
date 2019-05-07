@@ -36,6 +36,7 @@
         },
         mounted: function () {
             this.$store.dispatch('user/load');
+            this.$store.dispatch('activity/load');
         },
     }
 </script>

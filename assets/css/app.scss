@@ -115,26 +115,22 @@ h6 {
 **************/
 
 .v-select {
-  .selected-tag {
+
+  .vs__selected-options {
+    margin: 5px;
+  }
+
+  .vs__selected, .vs__search {
     color: #ffffff !important;
   }
 
-  .dropdown-toggle {
+  svg {
+    fill: #ffffff;
+  }
+
+  .vs__dropdown-toggle, .vs__dropdown-menu, .vs__dropdown-menu, .vs__dropdown-option {
     background-color: #454754 !important;
     color: #ffffff !important;
-
-  }
-
-  .open-indicator:before {
-    border-color: #ffffff !important;
-  }
-
-  .clear {
-    color: #ffffff !important;
-  }
-
-  .dropdown-toggle:after {
-    display: none;
   }
 
 }
@@ -148,7 +144,7 @@ h6 {
   border-radius: 11px;
   padding: 12px;
 
-  input, input:focus {
+  input, input:focus, select, select:focus {
     background-color: #454754;
     border: none;
     outline: none !important;
@@ -216,17 +212,26 @@ body {
     }
   }
 
-  .divider-vertical {
-    height: 75px;
-    margin: 0 20px;
-    border-left: 1px solid #A0A0A0;
-    opacity: 0.15;
+  .collapse {
+    .divider-vertical {
+      height: 60px;
+      margin: 0 20px;
+      border-left: 1px solid #A0A0A0;
+      opacity: 0.15;
+    }
+
+    .avatar {
+      margin-right: 15px;
+      height: 40px;
+    }
   }
 
-  .avatar {
-    margin-right: 15px;
-    height: 40px;
+  .badge {
+    vertical-align: top;
+    color: #ffffff;
+    background-color: $blue;
   }
+
 }
 
 
@@ -367,7 +372,7 @@ body {
           color: #ffffff;
           padding: 0 30px 20px 30px;
         }
-        a.active {
+        a.active, a.router-link-active {
           border-bottom: 5px solid $blue;
         }
       }
@@ -377,6 +382,11 @@ body {
   .list-group-item {
     background-color: $grey;
     border: 1px solid rgba(0, 0, 0, 0.125);
+
+    .spinner-grow {
+      margin-right: 10px;
+    }
+
   }
   .list-group-item-action {
     color: $text-grey;

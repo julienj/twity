@@ -3,6 +3,7 @@
 namespace App\Command;
 
 use App\Document\Provider;
+use App\Mercure\ProviderPublisher;
 use App\Messenger\Message\ProviderImportation;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Symfony\Component\Console\Command\Command;
@@ -14,13 +15,14 @@ use Symfony\Component\Messenger\MessageBusInterface;
 class RequestReloadProvidersCommand extends Command
 {
     protected $bus;
-
+    private $publisher;
     private $manager;
 
-    public function __construct(DocumentManager $manager, MessageBusInterface $bus)
+    public function __construct(DocumentManager $manager, MessageBusInterface $bus, ProviderPublisher $publisher)
     {
         $this->manager = $manager;
         $this->bus = $bus;
+        $this->publisher = $publisher;
         parent::__construct();
     }
 
@@ -49,7 +51,7 @@ class RequestReloadProvidersCommand extends Command
             $provider->setUpdateInProgress(true);
             $this->manager->flush();
             $this->bus->dispatch(new ProviderImportation($provider->getName()));
-
+            $this->publisher->publishProviderUpdate($provider);
             $this->manager->detach($provider);
         }
     }

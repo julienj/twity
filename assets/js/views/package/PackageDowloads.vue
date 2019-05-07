@@ -4,8 +4,8 @@
         <div class="card-header">
             Package installs
         </div>
-        <div class="card-body" >
-            <package-downloads-graph :height="500"  :chart-data="datacollection"></package-downloads-graph>
+        <div class="card-body">
+            <package-downloads-graph :height="500" v-if="loaded" :chart-data="chartdata"></package-downloads-graph>
         </div>
     </div>
 
@@ -24,11 +24,17 @@
         },
         data () {
             return {
-                datacollection: null
+                chartdata: null,
+                loaded: false,
             }
         },
-        mounted () {
-            this.fillData()
+         mounted () {
+             this.fillData()
+        },
+        watch: {
+            currentPackage() {
+                this.fillData();
+            }
         },
         methods: {
             fillData () {
@@ -55,7 +61,7 @@
                             }
                         }
 
-                        this.datacollection = {
+                        this.chartdata = {
                             labels: labels,
                             datasets: [
                                 {
@@ -70,14 +76,10 @@
                                     fill: false
                                 }
                             ]
-                        }
+                        };
 
+                        this.loaded = true;
                     })
-            }
-        },
-        watch: {
-            'currentPackage' : function () {
-                this.fillData();
             }
         }
     }

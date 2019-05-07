@@ -1,6 +1,7 @@
 import Router from 'vue-router'
 
 import Dashboard from './views/Dashboard'
+import Activity from './views/Activity'
 import NewPackage from './views/package/NewPackage'
 import Packages from './views/package/Packages'
 import Package from './views/package/Package'
@@ -36,6 +37,11 @@ export default new Router({
             path: '/dashboard',
             name: 'dashboard',
             component: Dashboard
+        },
+        {
+            path: '/activity',
+            name: 'activity',
+            component: Activity
         },
         {
             path: '/packages',
