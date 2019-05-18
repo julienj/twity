@@ -20,6 +20,7 @@ env:
     - MONGODB_URL=mongodb://travis:test@localhost:27017/twity_test
     - MONGODB_DB=twity_test
     - MESSENGER_TRANSPORT_DSN=amqp://guest:guest@localhost:5672/%2f/messages
+    - MERCURE_ENABLED=false
 
 before_install:
   - printf "\n" | pecl install amqp

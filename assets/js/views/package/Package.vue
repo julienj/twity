@@ -8,7 +8,7 @@
             <div class="card-header">
 
                 <!-- action -->
-                <div v-if="!provider.updateInProgress" class="float-right actions">
+                <div v-if="!isInProgress" class="float-right actions">
                     <div v-if="provider.lastUpdate">
                         Last update {{ provider.lastUpdate | moment('from') }} - <a v-if="provider.logs" @click="modalLogsShow = true">view logs</a>
                     </div>
@@ -81,8 +81,7 @@
             provider: {},
             loading: false,
             currentVersion: null,
-            modalLogsShow: false,
-            polling: null
+            modalLogsShow: false
         }),
         methods: {
             load: function (showLoader = true) {
@@ -98,12 +97,6 @@
                         if(data.provider.packages.length > 0) {
                             data.currentVersion = data.provider.packages[data.provider.packages.length - 1].version;
                         }
-
-                        if(response.data.updateInProgress) {
-                            data.startPolling();
-                        } else {
-                            data.stopPolling();
-                        }
                     })
                     .then(function () {
                         data.loading = false;
@@ -112,20 +105,10 @@
             },
             refresh: function () {
                 this.provider.updateInProgress = true;
-                ProviderApi.refresh(this.provider.name).then(() => this.startPolling());
+                this.$store.commit('activity/addProvider', this.name);
+                ProviderApi.refresh(this.provider.name);
             },
 
-            startPolling: function () {
-                if(!this.polling) {
-                    this.polling = setInterval(() => {this.load(false)}, 3000);
-                }
-
-            },
-            stopPolling: function () {
-                if(this.polling) {
-                    clearInterval(this.polling);
-                }
-            },
             remove: function () {
                 ProviderApi.remove(this.name).then(() => {
                   this.$router.push({ name: 'packages' });
@@ -136,6 +119,7 @@
             hasRole (role) {
                 return this.$store.getters['user/hasRole'](role);
             }
+
         },
         computed: {
             currentPackage: function () {
@@ -151,13 +135,21 @@
                 }
 
                 return null;
+            },
+            isInProgress () {
+                return this.$store.getters['activity/isInProgress'](this.name);
             }
         },
         mounted: function () {
             this.load();
-        },
-        beforeDestroy () {
-            this.stopPolling();
+
+            this.$store.watch(
+                (state, getters) => getters['activity/isInProgress'](this.name), (inProgress) => {
+                    if (!inProgress) {
+                        this.load(false);
+                    }
+                },
+            );
         },
         watch: {
             'name' : function () {

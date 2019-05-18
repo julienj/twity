@@ -69,6 +69,19 @@ class ProviderRepository extends DocumentRepository
         }, $providers);
     }
 
+    public function findUpdateInProgress(): array
+    {
+        $providers = $this->createQueryBuilder()
+            ->select('name')
+            ->field('updateInProgress')->equals(true)
+            ->hydrate(false)
+            ->getQuery()
+            ->execute()
+            ->toArray();
+
+        return array_keys($providers);
+    }
+
     public function getReplacements(Provider $provider)
     {
         return $this->createQueryBuilder()

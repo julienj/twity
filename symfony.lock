@@ -119,6 +119,9 @@
     "exsyst/swagger": {
         "version": "v0.4.1"
     },
+    "fig/link-util": {
+        "version": "1.0.0"
+    },
     "fzaninotto/faker": {
         "version": "v1.8.0"
     },
@@ -136,6 +139,9 @@
     },
     "justinrainbow/json-schema": {
         "version": "5.2.7"
+    },
+    "lcobucci/jwt": {
+        "version": "3.2.5"
     },
     "league/oauth2-client": {
         "version": "2.4.1"
@@ -208,6 +214,9 @@
     },
     "psr/http-message": {
         "version": "1.0.1"
+    },
+    "psr/link": {
+        "version": "1.0.0"
     },
     "psr/log": {
         "version": "1.0.2"
@@ -377,6 +386,18 @@
             "ref": "fadbfe33303a76e25cb63401050439aa9b1a9c7f"
         }
     },
+    "symfony/mercure": {
+        "version": "v0.1.0"
+    },
+    "symfony/mercure-bundle": {
+        "version": "0.1",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "0.1",
+            "ref": "c78ab1f56e700004fc5cd675c26b3c1c26be281d"
+        }
+    },
     "symfony/messenger": {
         "version": "4.1",
         "recipe": {
@@ -493,6 +514,9 @@
     },
     "symfony/var-exporter": {
         "version": "v4.2.2"
+    },
+    "symfony/web-link": {
+        "version": "v4.2.8"
     },
     "symfony/web-profiler-bundle": {
         "version": "3.3",
