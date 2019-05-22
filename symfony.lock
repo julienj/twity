@@ -1,0 +1,5 @@
+{
+    "symfony/polyfill-intl-idn": {
+        "version": "v1.11.0"
+    }
+}
