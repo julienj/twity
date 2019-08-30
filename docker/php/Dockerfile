@@ -24,6 +24,8 @@ RUN apt-get install --yes gnupg
 RUN curl -sL https://deb.nodesource.com/setup_8.x | bash
 RUN apt-get install --yes nodejs
 
+#npm
+RUN apt-get install --yes npm
 
 # xdebug
 RUN pecl install xdebug
@@ -35,4 +37,4 @@ RUN apt-get install --yes librabbitmq-dev
 RUN pecl install amqp
 RUN echo "extension=amqp.so" > /usr/local/etc/php/conf.d/amqp.ini
 
-
+WORKDIR /srv/twity

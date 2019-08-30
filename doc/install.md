@@ -11,8 +11,7 @@
 ```bash
 git clone https://github.com/julienj/twity.git
 cd twity
-cp .env.dist .env
-composer insall
+composer install
 npm install
 npm run build
 ```
@@ -57,6 +56,8 @@ GITLAB_CLIENT_ID=my-client-id
 GITLAB_CLIENT_ID_SECRET=my-secret
 ```
 
+If you choose to setup the Gilab Oauth, when creating the twity application on your Gitlab account, you will have to
+fill in the redirect uri. These uri is `http(s)://YOURTWITYDOMAIN/login/gitlab`
 
 ## Create indexes
 
