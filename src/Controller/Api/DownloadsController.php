@@ -43,6 +43,8 @@ class DownloadsController extends AbstractController
             $data[$item['date']]['version'] = $item['downloads'];
         }
 
+        ksort($data);
+
         return $this->json($data);
     }
 }
