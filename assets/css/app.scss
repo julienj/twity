@@ -67,9 +67,17 @@ h6 {
 }
 
 .dropdown-menu {
+  min-width: 250px;
   max-height: 300px;
   overflow-y: auto;
 
+  .dropdown-header {
+    font-size: 17px;
+    font-style: italic;
+  }
+  .dropdown-item {
+    color: #FFFFFF;
+  }
   .dropdown-item:hover, .dropdown-item:focus {
     background-color: $blue;
   }

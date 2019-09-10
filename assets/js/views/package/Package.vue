@@ -29,9 +29,21 @@
 
                 <!-- versions dropdown -->
                 <b-dropdown class="ml-3" :text="currentVersion">
-                    <b-dropdown-item  v-for="version in versions" :key="version" @click="currentVersion = version">
-                        {{ version }}
-                    </b-dropdown-item>
+                    <b-dropdown-form>
+                        <b-form-group label=" " label-for="dropdown-form-search">
+                            <b-form-input
+                                v-model="search"
+                                id="dropdown-form-search"
+                                type="text"
+                                size="sm"
+                                placeholder="Search a version"
+                            ></b-form-input>
+                        </b-form-group>
+                    </b-dropdown-form>
+                    <package-versions type="branches" :versions="branches" :search="search" :update-version="setCurrentVersion">
+                    </package-versions>
+                    <package-versions type="tags" :versions="tags" :search="search" :update-version="setCurrentVersion">
+                    </package-versions>
                 </b-dropdown>
 
             </div>
@@ -69,37 +81,47 @@
     import ProviderApi from '../../api/provider'
     import Loader from '../../components/Loader'
     import ConfirmButton from '../../components/ConfirmButton'
+    import PackageVersions from '../../components/package/PackageVersions'
 
     export default {
         name: "package",
         props: ['name'],
         components: {
             Loader,
-            ConfirmButton
+            ConfirmButton,
+            PackageVersions
         },
         data: () => ({
             provider: {},
             loading: false,
             currentVersion: null,
-            modalLogsShow: false
+            modalLogsShow: false,
+            branches: [],
+            tags: [],
+            search: ''
         }),
         methods: {
             load: function (showLoader = true) {
 
-                let data = this;
-                if(showLoader) {
-                    data.loading = true;
+                if (showLoader) {
+                    this.loading = true;
                 }
 
                 ProviderApi.find(this.name)
-                    .then(function (response) {
-                        data.provider = response.data;
-                        if(data.provider.packages.length > 0) {
-                            data.currentVersion = data.provider.packages[data.provider.packages.length - 1].version;
+                    .then((response) => {
+                        this.provider = response.data;
+                        if (this.provider.packages.length > 0) {
+                            let versions = this.provider.packages.map(pack => pack.version);
+                            const versionDev = versions.filter(version => version.endsWith('-dev')).sort(this.sortDesc);
+                            const devVersion = versions.filter(version => version.startsWith('dev-')).sort(this.sortAsc);
+
+                            this.currentVersion = this.provider.packages[this.provider.packages.length - 1].version;
+                            this.branches = versionDev.concat(devVersion);
+                            this.tags = versions.filter(version => !version.startsWith('dev-') && !version.endsWith('-dev')).sort(this.sortDesc);
                         }
                     })
-                    .then(function () {
-                        data.loading = false;
+                    .finally(() => {
+                        this.loading = false;
                     })
                 ;
             },
@@ -112,26 +134,28 @@
             remove: function () {
                 ProviderApi.remove(this.name).then(() => {
                   this.$router.push({ name: 'packages' });
-                })
+                });
                 this.loading = true;
                 this.provider = {};
             },
             hasRole (role) {
                 return this.$store.getters['user/hasRole'](role);
+            },
+            sortAsc (a, b) {
+                return a.toLowerCase().localeCompare(b.toLowerCase());
+            },
+            sortDesc (a, b) {
+                return this.sortAsc(b, a);
+            },
+            setCurrentVersion (version) {
+                this.currentVersion = version;
+                this.search = '';
             }
-
         },
         computed: {
             currentPackage: function () {
                 if(this.provider.packages) {
                     return this.provider.packages.find( p => p.version === this.currentVersion );
-                }
-
-                return null;
-            },
-            versions: function () {
-                if(this.provider.packages) {
-                    return this.provider.packages.map(p => p.version);
                 }
 
                 return null;
