@@ -151,7 +151,7 @@ class User extends AbstractUser
         return $this->avatarUrl;
     }
 
-    public function setAvatarUrl(string $avatarUrl): self
+    public function setAvatarUrl(?string $avatarUrl): self
     {
         $this->avatarUrl = $avatarUrl;
 
