@@ -56,7 +56,7 @@ GITLAB_CLIENT_ID=my-client-id
 GITLAB_CLIENT_ID_SECRET=my-secret
 ```
 
-If you choose to setup the Gilab Oauth, when creating the twity application on your Gitlab account, you will have to
+If you choose to setup the Gitlab Oauth, when creating the twity application on your Gitlab account, you will have to
 fill in the redirect uri. These uri is `http(s)://YOURTWITYDOMAIN/login/gitlab`
 
 ## Create indexes
