@@ -44,19 +44,17 @@ services:
     image: djfarrelly/maildev
     container_name: twity_maildev
     ports:
-    - "8082:80"
-    - "25:25"
+      - "8082:80"
+      - "25:25"
 
   mercure:
-    image: dunglas/mercure
+    image: dunglas/mercure:v0.6
     container_name: twity_mercure
     environment:
       - JWT_KEY=fzed922Ndçdz8273
       - CORS_ALLOWED_ORIGINS=https://localhost:8000,https://127.0.0.1:8000,http://localhost:8080,http://127.0.0.1:8080
-
     ports:
       - "8083:80"
-
 
 volumes:
   db-data: {}
