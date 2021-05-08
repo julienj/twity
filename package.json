@@ -22,7 +22,7 @@
         "bootstrap-vue": "^2.0.0",
         "chart.js": "^2.8.0",
         "feather-icons": "^4.21.0",
-        "lodash": "^4.17.11",
+        "lodash": "^4.17.21",
         "vue": "^2.6",
         "vue-chartjs": "^3.4.2",
         "vue-clipboard2": "^0.2.1",
