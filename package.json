@@ -20,7 +20,7 @@
     "dependencies": {
         "axios": "^0.18.0",
         "bootstrap-vue": "^2.0.0",
-        "chart.js": "^2.8.0",
+        "chart.js": "^2.9.4",
         "feather-icons": "^4.21.0",
         "lodash": "^4.17.11",
         "vue": "^2.6",
