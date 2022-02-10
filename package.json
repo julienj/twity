@@ -4,7 +4,7 @@
         "@symfony/webpack-encore": "^0.27.0",
         "eslint": "^5.12.1",
         "eslint-plugin-vue": "^5.1.0",
-        "node-sass": "^4.12.0",
+        "node-sass": "^7.0.0",
         "sass-loader": "^7.1.0",
         "vue-loader": "^15.4.2",
         "webpack-notifier": "^1.6.0"
